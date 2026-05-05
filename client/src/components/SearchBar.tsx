@@ -11,7 +11,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [inputValue, setInputValue] = useState('');
   const onSearchRef = useRef(onSearch);
   
-  useEffect(() => {
+  useEffect(() => { 
     onSearchRef.current = onSearch;
   }, [onSearch]);
 

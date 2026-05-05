@@ -1,0 +1,39 @@
+/* AddTaskDialog.css */
+
+.add-task-button {
+  margin-top: 16px; 
+  margin: auto;
+  justify-content: center;
+  display: flex;
+}
+
+.dialog-actions {
+  padding: 16px;
+}
+
+.rtl-dialog-content {
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    gap: 8px; 
+}
+
+.rtl-dialog-content .MuiInputLabel-root {
+    left: auto !important;
+    right: 1.75rem !important;
+    transform-origin: right !important;
+}
+
+.rtl-dialog-content .MuiInputLabel-shrink {
+    transform: translate(14px, -6px) scale(0.75) !important;
+    right: 1.4rem !important;
+}
+
+.rtl-dialog-content .MuiOutlinedInput-notchedOutline {
+    text-align: right !important;
+}
+
+.rtl-dialog-content .MuiSelect-icon {
+    right: auto !important;
+    left: 7px !important;
+}

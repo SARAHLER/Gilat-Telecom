@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Container, Box, CssBaseline } from '@mui/material';
+import { Container, Box, CssBaseline, Typography } from '@mui/material';
 import SearchBar from './components/SearchBar';
 import AddTaskDialog from './components/AddTaskDialog';
 import TaskList from './components/TaskList';
@@ -20,13 +20,19 @@ function App() {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', bgcolor: '#f5f5f5' }}>
+    <Box className="app-container">
       <CssBaseline />
-      <Container maxWidth="lg">
-        <Box sx={{ textAlign: 'center', mb: 4, mt: 4 }}>
+      <Container >
+        <Box className="header-container">
+          <Typography variant="h4" className="main-title">
+            ניהול המשימות שלי
+          </Typography>
+          <Typography variant="body1" className="subtitle">
+            עקוב אחר המשימות שלך בקלות ובנוחות
+          </Typography>
+          </Box>
           <SearchBar onSearch={handleSearch} />
           <AddTaskDialog onTaskAdded={handleTaskAdded} />
-        </Box>
         <TaskList 
           key={`${refreshKey}-${searchTerm}`} 
           ref={taskListRef} 

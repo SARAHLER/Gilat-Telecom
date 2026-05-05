@@ -1,0 +1,68 @@
+/* TaskList.css */
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 48px; 
+    width: 100%;
+}
+.error-container {
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+.error-alert {
+    margin-bottom: 16px !important;
+    max-width: 600px;
+    width: 100%;
+}
+.no-tasks-container {
+    padding: 48px; 
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.task-list-wrapper {
+    padding: 24px;
+   justify-content: center;
+   display: flex;
+}
+.tasks-grid-container {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important; 
+    width: 100%;
+    margin: -12px;
+}
+.task-grid-item {
+    padding: 12px !important; 
+    box-sizing: border-box;
+    width: 50%; 
+    align-items: center;
+    justify-content: center ;
+}
+.card-header-stack {
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    width: 100%;
+}
+.task-title-text {
+    font-weight: 700 !important;
+    color: #2c3e50;
+}
+
+.task-description {
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+.task-card-actions {
+    justify-content: flex-end !important; 
+    border-top: 1px solid #eee !important; 
+    padding: 8px 16px !important;
+}
