@@ -6,11 +6,21 @@ import taskRoutes from './routes/taskRoutes';
 import { errorHandler } from './middleware/errorHandler';
 import logger from './utils/logger';
 
+/** * Main server file for the Task Manager application.
+ * Sets up the Express server, connects to MongoDB, and defines middleware and routes.
+ * Utilizes environment variables for configuration and Winston for logging.
+ */
 dotenv.config();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+const allowedOrigin = process.env.CLIENT_URL;
+
+app.use(
+  cors({
+    origin: allowedOrigin,
+  })
+);
 app.use('/api/tasks', taskRoutes);
 app.use(errorHandler);
 

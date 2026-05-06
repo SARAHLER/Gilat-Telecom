@@ -1,19 +1,31 @@
 import React, { useState } from 'react';
-import { Button, Dialog, DialogTitle, DialogContent, TextField, MenuItem, DialogActions, Box } from '@mui/material';
-import { createTask } from '../services/api';
+import {
+  Button, Dialog, DialogTitle, DialogContent, TextField, MenuItem, DialogActions, Box,
+} from '@mui/material';
 import { useSnackbar } from 'notistack';
-import { ITask } from '../types/task';
-// @ts-ignore
+import { createTask } from '../services/api';
+import { CreateTaskDto } from '../types/task';
 import './AddTaskDialog.css';
 
+/**
+ * Dialog component for creating a new task.
+ * Includes validation for required fields and status selection.
+ */
 interface Props {
   onTaskAdded: () => void;
 }
 
+const INITIAL_TASK: CreateTaskDto = { title: '', description: '', status: 'Pending' };
+
 const AddTaskDialog: React.FC<Props> = ({ onTaskAdded }) => {
   const [open, setOpen] = useState(false);
-  const [newTask, setNewTask] = useState({ title: '', description: '', status: 'Pending' as ITask['status'] });
+  const [newTask, setNewTask] = useState<CreateTaskDto>(INITIAL_TASK);
   const { enqueueSnackbar } = useSnackbar();
+
+  const handleClose = () => {
+    setOpen(false);
+    setNewTask(INITIAL_TASK);
+  };
 
   const handleSubmit = async () => {
     if (!newTask.title.trim()) {
@@ -22,30 +34,29 @@ const AddTaskDialog: React.FC<Props> = ({ onTaskAdded }) => {
     }
     try {
       await createTask(newTask);
-      setNewTask({ title: '', description: '', status: 'Pending' });
-      setOpen(false);
-      onTaskAdded();
+      setOpen(false); 
+      setNewTask(INITIAL_TASK);      
+      onTaskAdded(); 
       enqueueSnackbar('המשימה נוצרה בהצלחה', { variant: 'success' });
     } catch (error: any) {
       console.error('Create error:', error);
-      enqueueSnackbar(error.response?.data?.message || 'חלה שגיאה בעת הוספת משימה', { variant: 'error' });
+      enqueueSnackbar(
+        error.response?.data?.message || 'חלה שגיאה בעת הוספת משימה',
+        { variant: 'error' }
+      );
     }
   };
-const handleClose = () => {
-  setOpen(false);
-  setNewTask({ title: '', description: '', status: 'Pending' });
-};
   return (
     <>
-    <Box  className="add-task-button">
-      <Button variant="contained" onClick={() => setOpen(true)} >
-        הוסף משימה חדשה
-      </Button>
+      <Box className="add-task-button">
+        <Button variant="contained" onClick={() => setOpen(true)}>
+          הוסף משימה חדשה
+        </Button>
       </Box>
       <Dialog open={open} onClose={handleClose} fullWidth maxWidth="sm" dir="rtl">
         <DialogTitle>הוסף משימה חדשה</DialogTitle>
-<DialogContent dividers className="rtl-dialog-content">
-            <TextField
+        <DialogContent dividers className="rtl-dialog-content">
+          <TextField
             autoFocus
             margin="normal"
             label="כותרת"
@@ -73,7 +84,9 @@ const handleClose = () => {
             variant="outlined"
             dir="rtl"
             value={newTask.status}
-            onChange={(e) => setNewTask({ ...newTask, status: e.target.value as ITask['status'] })}
+            onChange={(e) =>
+              setNewTask({ ...newTask, status: e.target.value as CreateTaskDto['status'] })
+            }
           >
             <MenuItem value="Pending">Pending</MenuItem>
             <MenuItem value="In Progress">In Progress</MenuItem>
@@ -82,7 +95,9 @@ const handleClose = () => {
         </DialogContent>
         <DialogActions className="dialog-actions">
           <Button onClick={handleClose} color="inherit">ביטול</Button>
-          <Button onClick={handleSubmit} variant="contained" color="primary">שמור משימה</Button>
+          <Button onClick={handleSubmit} variant="contained" color="primary">
+            שמור משימה
+          </Button>
         </DialogActions>
       </Dialog>
     </>

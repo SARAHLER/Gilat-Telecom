@@ -1,4 +1,7 @@
-// src/types/task.ts
+
+/**
+ * Interface representing a task entity.
+ */
 export interface ITask {
   _id?: string;
   title: string;
@@ -6,3 +9,5 @@ export interface ITask {
   status: 'Pending' | 'In Progress' | 'Completed';
   createdAt?: string;
 }
+
+export type CreateTaskDto = Omit<ITask, '_id'>;

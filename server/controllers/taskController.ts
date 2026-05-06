@@ -65,23 +65,6 @@ export const createTask = async (req: Request, res: Response) => {
 };
 
 /**
- * GET /api/tasks/:id
- * Retrieve a single task by ID
- */
-export const getTaskById = async (req: Request, res: Response) => {
-  const task = await Task.findById(req.params.id);
-
-  if (!task) {
-    throw new AppError('No task found with that ID', 404);
-  }
-
-  res.status(200).json({
-    status: 'success',
-    data: { task }
-  });
-};
-
-/**
  * PUT /api/tasks/:id
  * Update an existing task
  */
@@ -127,8 +110,5 @@ export const deleteTask = async (req: Request, res: Response) => {
   if (!task) {
     throw new AppError('No task found with that ID', 404);
   }
-  res.status(204).json({
-    status: 'success',
-    data: null
-  });
+  res.status(204).end();
 };

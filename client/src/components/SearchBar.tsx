@@ -1,34 +1,18 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { Box, TextField, InputAdornment, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 
+/**
+ * Search input component for filtering tasks.
+ * Provides a controlled text field with an adornment icon and a clear button.
+ */
 interface SearchBarProps {
-  onSearch: (term: string) => void;
+  value: string;
+  onChange: (term: string) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-  const [inputValue, setInputValue] = useState('');
-  const onSearchRef = useRef(onSearch);
-  
-  useEffect(() => { 
-    onSearchRef.current = onSearch;
-  }, [onSearch]);
-
-  useEffect(() => {
-    const delay = inputValue === '' ? 0 : 500;
-
-    const timer = setTimeout(() => {
-      onSearchRef.current(inputValue);
-    }, delay);
-
-    return () => clearTimeout(timer);
-  }, [inputValue]);
-
-  const handleClear = () => {
-    setInputValue('');
-  };
-
+const SearchBar: React.FC<SearchBarProps> = ({ value, onChange }) => {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
       <TextField
@@ -36,9 +20,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
         variant="outlined"
         size="small"
         fullWidth
+        dir='rtl'
         sx={{ maxWidth: 400 }}
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         slotProps={{
           input: {
             startAdornment: (
@@ -46,9 +31,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
                 <SearchIcon color="action" />
               </InputAdornment>
             ),
-            endAdornment: inputValue && (
+            endAdornment: value && (
               <InputAdornment position="end">
-                <IconButton size="small" onClick={handleClear} edge="end">
+                <IconButton size="small" onClick={() => onChange('')} edge="end">
                   <ClearIcon fontSize="small" />
                 </IconButton>
               </InputAdornment>

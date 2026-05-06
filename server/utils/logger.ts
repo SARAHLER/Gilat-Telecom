@@ -2,7 +2,11 @@ import winston from 'winston';
 import fs from 'fs';
 import path from 'path';
 
-// Create logs directory if it doesn't exist
+/**
+ * Logger utility using Winston for structured logging.
+ * Logs are stored in the 'logs' directory with separate files for errors and combined logs.
+ * In development, logs are also output to the console with colorization for better readability.
+ */
 const logsDir = path.join(process.cwd(), 'logs');
 if (!fs.existsSync(logsDir)) {
   fs.mkdirSync(logsDir);

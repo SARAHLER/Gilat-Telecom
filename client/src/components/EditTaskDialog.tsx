@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button } from '@mui/material';
+import {
+  Dialog, DialogTitle, DialogContent, TextField, DialogActions, Button,
+} from '@mui/material';
 import { ITask } from '../types/task';
 
+/**
+ * Modal dialog for updating an existing task's title and description.
+ * Pre-populates the fields with current task data when opened.
+ */
 interface Props {
   open: boolean;
   task: ITask | null;
@@ -23,12 +29,18 @@ const EditTaskDialog: React.FC<Props> = ({ open, task, onClose, onSave }) => {
       <DialogTitle>ערוך משימה</DialogTitle>
       <DialogContent>
         <TextField
-          margin="dense" label="כותרת" fullWidth
+          margin="dense"
+          label="כותרת"
+          fullWidth
           value={formData.title}
           onChange={(e) => setFormData({ ...formData, title: e.target.value })}
         />
         <TextField
-          margin="dense" label="תיאור" fullWidth multiline rows={4}
+          margin="dense"
+          label="תיאור"
+          fullWidth
+          multiline
+          rows={4}
           value={formData.description}
           onChange={(e) => setFormData({ ...formData, description: e.target.value })}
         />

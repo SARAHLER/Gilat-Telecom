@@ -16,10 +16,13 @@
   width: 100% !important;
   display: block !important;
 }
-.main-title {
-  color: #1976d2;
+h4.main-title {
+  color: #1976d2 !important;
   font-weight: 700 !important;
   margin-bottom: 8px !important;
+  text-align: center;
+  width: 100%;
+  display: block;
 }
 
 .subtitle {

@@ -4,7 +4,6 @@ import {
   createTask, 
   updateTask, 
   deleteTask, 
-  getTaskById 
 } from '../controllers/taskController';
 
 const router = Router();
@@ -17,14 +16,6 @@ const router = Router();
  * @returns {Object} { status, results, totalTasks, data: { tasks } }
  */
 router.get('/', getTasks);
-
-/**
- * @route GET /api/tasks/:id
- * @desc Retrieve a single task by ID
- * @param {string} id - MongoDB task ID
- * @returns {Object} { status, data: { task } }
- */
-router.get('/:id', getTaskById);
 
 /**
  * @route POST /api/tasks

@@ -1,38 +1,43 @@
-// src/services/api.ts
 import axios from 'axios';
-import { ITask } from '../types/task';
+import { ITask, CreateTaskDto } from '../types/task';
 
-const API_URL = 'http://localhost:5000/api/tasks';
-
+/**
+ * API service module using Axios.
+ * Handles HTTP requests for task operations, including custom instance configuration,
+ * interceptors for global error logging, and type-safe request methods.
+ */
+const API_URL = process.env.API_URL || 'http://localhost:5000/api/tasks';
 const axiosInstance = axios.create({
   baseURL: API_URL,
-  timeout: 10000
+  timeout: 10000,
 });
 
 axiosInstance.interceptors.response.use(
-  response => response,
-  error => {
+  (response) => response,
+  (error) => {
     console.error('API Error:', {
       message: error.message,
       status: error.response?.status,
-      data: error.response?.data
+      data: error.response?.data,
     });
     return Promise.reject(error);
   }
 );
 
-export const getTasks = (name: string = '', date?: string) => {
+interface GetTasksResponse {
+  status: string;
+  results: number;
+  totalTasks: number;
+  data: { tasks: ITask[] };
+}
+
+export const getTasks = (name: string = '') => {
   const query = name ? `?name=${encodeURIComponent(name)}` : '';
-  return axiosInstance.get<{ 
-    status: string; 
-    results: number; 
-    totalTasks: number; 
-    data: { tasks: ITask[] } 
-  }>(`/${query}`); 
+  return axiosInstance.get<GetTasksResponse>(`/${query}`);
 };
 
-export const createTask = (task: ITask) => {
-  return axiosInstance.post<ITask>(``, task);
+export const createTask = (task: CreateTaskDto) => {
+  return axiosInstance.post<ITask>('', task);
 };
 
 export const updateTask = (id: string, task: Partial<ITask>) => {
